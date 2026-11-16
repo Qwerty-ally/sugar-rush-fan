@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sugar Rush Fan Page</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Outfit:wght@400;500;700&display=swap">
+<style>
+/* Layout: one glossy chrome-lilac night, like the poster. Fan-made banner up top, the poster beside a big
+   "Coming Soon" and a countdown, then the 5-song tracklist where you pick your favorite. Single dark look. */
+:root{
+  --bg:#120a24; --bg-2:#1d1238; --card:rgba(255,255,255,.06); --line:rgba(214,190,255,.25);
+  --fg:#f6f0ff; --muted:#bfaedf; --lilac:#c9a8ff; --chrome:#efe4ff; --pink:#ff9ad5;
+  --script:"Pacifico", "Brush Script MT", cursive;
+  --body:"Outfit", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;color:var(--fg);font:16px/1.55 var(--body);
+  background:radial-gradient(ellipse 60% 40% at 15% 10%, rgba(160,110,255,.35), transparent),
+             radial-gradient(ellipse 50% 40% at 90% 60%, rgba(255,140,210,.18), transparent),
+             linear-gradient(180deg,var(--bg-2),var(--bg) 70%);
+  background-color:var(--bg);background-attachment:fixed;min-height:100vh}
+.sparkles{position:fixed;inset:0;pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1;max-width:1040px;margin:0 auto;padding-block:16px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:28px}
+.fan{align-self:center;font-size:13px;font-weight:500;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 14px;text-align:center}
+.fan b{color:var(--chrome)}
+.hero{display:grid;grid-template-columns:minmax(0,1fr);gap:28px;align-items:center}
+@media (min-width:780px){.hero{grid-template-columns:minmax(0,380px) minmax(0,1fr)}}
+.poster{width:100%;max-width:380px;margin:0 auto;display:block;border-radius:18px;border:1px solid var(--line);box-shadow:0 0 0 6px rgba(201,168,255,.08),0 30px 80px -20px rgba(160,110,255,.6)}
+.txt{text-align:center;min-width:0}
+@media (min-width:780px){.txt{text-align:left}}
+.eyebrow{margin:0;font-weight:700;letter-spacing:.24em;text-transform:uppercase;font-size:13px;color:var(--lilac)}
+h1{margin:6px 0 0;font:400 clamp(64px,12vw,120px)/1.05 var(--script);
+  background:linear-gradient(180deg,#fff 0%,var(--chrome) 35%,#a98bdc 55%,#fff 75%,var(--lilac) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 18px rgba(201,168,255,.55));padding-bottom:.1em}
+.soon{display:inline-block;margin-top:4px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;font-size:clamp(18px,3vw,24px);color:var(--fg);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:8px 4px}
+.out{margin:14px 0 0;color:var(--muted)}
+.count{display:flex;gap:10px;margin-top:18px;justify-content:center}
+@media (min-width:780px){.count{justify-content:flex-start}}
+.count div{min-width:72px;padding:10px 8px;border-radius:14px;background:var(--card);border:1px solid var(--line);text-align:center}
+.count b{display:block;font-size:30px;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--chrome)}
+.count small{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.released{margin-top:18px;font-size:22px;font-weight:700;color:var(--pink)}
+section.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px}
+h2{margin:0 0 4px;font:400 34px/1.2 var(--script);color:var(--chrome)}
+.panel p.sub{margin:0 0 16px;color:var(--muted);font-size:14px}
+.tracks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.track{display:grid;grid-template-columns:36px minmax(0,1fr) auto;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
+.track .n{font-weight:700;color:var(--lilac);font-variant-numeric:tabular-nums}
+.track .name{font-weight:500;font-size:17px}
+.track .bar{grid-column:2/3;height:6px;border-radius:6px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:6px}
+.track .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--lilac),var(--pink));width:0;transition:width .4s}
+.fav{border:1px solid var(--line);background:transparent;color:var(--fg);border-radius:999px;padding:8px 14px;font:500 14px var(--body);cursor:pointer}
+.fav[aria-pressed="true"]{background:var(--pink);border-color:var(--pink);color:#2a0b22}
+.fav:focus-visible{outline:3px solid var(--chrome);outline-offset:2px}
+footer{text-align:center;color:var(--muted);font-size:13px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<canvas class="sparkles" id="sparkles" aria-hidden="true"></canvas>
+<main class="wrap">
+  <p class="fan"><b>Fan-made page</b> · made by a fan, not official and not from KATSEYE or their label</p>
+
+  <section class="hero" aria-labelledby="title">
+    <img class="poster" src="poster.jpg" alt="Sugar Rush poster: KATSEYE, the new album, out 11.28.26, with the tracklist">
+    <div class="txt">
+      <p class="eyebrow">KATSEYE · the new album</p>
+      <h1 id="title">Sugar Rush</h1>
+      <div class="soon">Coming Soon</div>
+      <p class="out">Out November 28, 2026</p>
+      <div class="count" id="count" aria-live="off">
+        <div><b id="d">0</b><small>Days</small></div>
+        <div><b id="h">0</b><small>Hours</small></div>
+        <div><b id="m">0</b><small>Min</small></div>
+        <div><b id="s">0</b><small>Sec</small></div>
+      </div>
+      <p class="released" id="released" hidden>It's out now!</p>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="tlTitle">
+    <h2 id="tlTitle">Tracklist</h2>
+    <p class="sub">5 songs. Tap the one you're most excited for. Your pick stays on this device.</p>
+    <ol class="tracks" id="tracks"></ol>
+  </section>
+
+  <footer>A fan page for Sugar Rush · not affiliated with KATSEYE</footer>
+</main>
+
+<script>
+const $ = s => document.querySelector(s);
+
+/* countdown to release day */
+const RELEASE = new Date("2026-11-28T00:00:00");
+function tick(){
+  const ms = RELEASE - Date.now();
+  if (ms <= 0){ $("#count").hidden = true; $("#released").hidden = false; return; }
+  const t = Math.floor(ms / 1000);
+  $("#d").textContent = Math.floor(t / 86400);
+  $("#h").textContent = Math.floor(t / 3600) % 24;
+  $("#m").textContent = Math.floor(t / 60) % 60;
+  $("#s").textContent = t % 60;
+}
+tick(); setInterval(tick, 1000);
+
+/* tracklist + favorite pick */
+const TRACKS = ["Freaky Dreamer", "Touch the Sky", "Sugar Rush", "My Type", "Pretty Chaos"];
+let fav = null;
+try { fav = localStorage.getItem("sugar-rush-fav"); } catch(e){}
+function renderTracks(){
+  $("#tracks").innerHTML = TRACKS.map((t, i) => `
+    <li class="track">
+      <span class="n">${i + 1}</span>
+      <div><div class="name">${t}</div><div class="bar"><i style="width:${fav === t ? 100 : 0}%"></i></div></div>
+      <button class="fav" type="button" data-t="${t}" aria-pressed="${fav === t}">${fav === t ? "♥ My fave" : "♡ Fave"}</button>
+    </li>`).join("");
+}
+$("#tracks").addEventListener("click", e => {
+  const b = e.target.closest("[data-t]"); if (!b) return;
+  fav = fav === b.dataset.t ? null : b.dataset.t;
+  try { fav ? localStorage.setItem("sugar-rush-fav", fav) : localStorage.removeItem("sugar-rush-fav"); } catch(e){}
+  renderTracks();
+});
+renderTracks();
+
+/* floating sparkles and little stars, like the poster */
+const cv = $("#sparkles"), cx = cv.getContext("2d");
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let W, H, dots = [];
+function size(){
+  W = cv.width = innerWidth * devicePixelRatio; H = cv.height = innerHeight * devicePixelRatio;
+  cv.style.width = innerWidth + "px"; cv.style.height = innerHeight + "px";
+  dots = Array.from({ length: 60 }, () => ({ x: Math.random() * W, y: Math.random() * H, r: (Math.random() * 1.8 + .6) * devicePixelRatio, p: Math.random() * 6.28, v: (Math.random() * .2 + .05) * devicePixelRatio, star: Math.random() < .2 }));
+}
+function draw(t){
+  cx.clearRect(0, 0, W, H);
+  for (const d of dots){
+    const a = .35 + .65 * Math.abs(Math.sin(d.p + t / 900));
+    cx.globalAlpha = a; cx.fillStyle = d.star ? "#ffffff" : "#d9c2ff";
+    if (d.star){
+      const r = d.r * 3; cx.beginPath();
+      cx.moveTo(d.x, d.y - r); cx.quadraticCurveTo(d.x, d.y, d.x + r, d.y); cx.quadraticCurveTo(d.x, d.y, d.x, d.y + r);
+      cx.quadraticCurveTo(d.x, d.y, d.x - r, d.y); cx.quadraticCurveTo(d.x, d.y, d.x, d.y - r); cx.fill();
+    } else { cx.beginPath(); cx.arc(d.x, d.y, d.r, 0, 6.28); cx.fill(); }
+    if (!reduce){ d.y -= d.v; if (d.y < -10) { d.y = H + 10; d.x = Math.random() * W; } }
+  }
+  if (!reduce) requestAnimationFrame(draw);
+}
+size(); addEventListener("resize", size); requestAnimationFrame(draw);
+</script>
